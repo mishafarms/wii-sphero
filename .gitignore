@@ -1,0 +1,7 @@
+CMakeFiles
+CMakeFiles/*
+CMakeCache.txt
+Makefile
+wii-sphero
+cmake_install.cmake
+install_manifest.txt
