@@ -7,42 +7,34 @@ This was all done on a raspberry PI 3. Here are my install instructions for the 
 sudo apt-get vino dconf-editor
 use dconf-editor to set no-prompt and no-encryption
 create /home/pi/.config/autostart/
-write the following to vino.desktop in the /home/pi/.config/autostart/ directory (You don't need to double-
-space the lines, it wasn't displaying correctly).
-
+write the following to vino.desktop in the /home/pi/.config/autostart/ directory 
+```
 [Desktop Entry]
-
 Encoding=UTF-8
-
 Type=Application
-
 Name=VINO
-
 Comment=
-
 Exec=/usr/lib/vino/vino-server
-
 StartupNotify=false
-
 Terminal=false
-
 Hidden=false
+```
 
-###### file ends empty line above this
-
-## this will give a 1920x1080 screen size with no monitor connected
 then reboot and you should have a VNC to the desktop available.
 in order to get a larger screen headless add the following to /boot/config.txt
+##### this will give a 1920x1080 screen size with no monitor connected hdmi_group = 1 and hdmi_mode =16
+
+```
 hdmi_force_hotplug=1
-hdmi_ignore_edid=0xa5000080 
+hdmi_ignore_edid=0xa5000080
 hdmi_group=1
 hdmi_mode=16
 start_x=1
 gpu_mem=128
-
-#######
+```
 
 sudo apt-get install bluez blueman libbluetooth-dev git libreadline6-dev libncurses5 libncurses5-dev cmake
+
 git clone https://github.com/slock83/sphero-linux-api.git
 
 sudo apt-get install emacs
@@ -51,45 +43,49 @@ The Sphero's need to be paired with the raspberry. You can use blueman should be
 side of the main desktop. to pair and trust the Sphero's. 
 
 ##### This is the way to  go with wii use the hid-wiimote.
-#
-# using hid-wiimote kernel mod
+
+##### using hid-wiimote kernel mod
 
 sudo modprobe hid-wiimote
 
 sudo apt-get install xwiimote
 
-# go here to get more info https://wiki.archlinux.org/index.php/XWiimote
+###### go here to get more info https://wiki.archlinux.org/index.php/XWiimote
 
+```
 sudo bluetoothctl
-
 power on
 agent on
 <press red sync button>
 scan on
 pair <MAC of the found wiimote, use TAB for autocompletion>           # note: we do not explicitly connect, we just pair!
-connect <MAC of the wiimote>                                          # there seems to be a pretty short timeout, so execute this immediately after the pairing command
+connect <MAC of the wiimote>                                          # there seems to be a pretty short timeout, so execute thisimmediately after the pairing command
 trust <MAC of the wiimote>
 disconnect <MAC of the wiimote>
+```
 
 git clone https://github.com/dvdhrm/xwiimote.git
 
-# may need autoconf sudo apt-get install autoconf
+####### may need autoconf
+```
+sudo apt-get install autoconf
 sudo apt-get install libtool
 sudo apt-get install libudev-dev
-
 sudo apt-get install libboost-dev
+```
 
-then in this directory you can type cmake . then make. You should get a wii-sphero
-executeable. It needs to be run as root. So if you do sudo make install it will be installed into /home/pi/bin/wii-sphero with 
-the proper permissions.
+then in this directory you can type 'cmake .' then 'make'.
+
+You should get a wii-sphero executeable. It needs to be run as root. So if you do sudo make install it will be installed into /home/pi/bin/wii-sphero with the proper permissions.
 
 I put this into the /etc/rc.local to get this program to run every time we reboot.
 
+```
 if [ -e /home/pi/bin/wii-sphero ]; then
    cd /home/pi
    /home/pi/bin/wii-sphero -p 60 > /dev/null &
 fi
-
+```
 wii-sphero [-cel] [-s #] [-p #]
 -c - don't connect to sphero. used mostly for debugging Wii code
 -e - turn on error printing
