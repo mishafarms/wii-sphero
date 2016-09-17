@@ -89,6 +89,7 @@ if [ -e /home/pi/bin/wii-sphero ]; then
    /home/pi/bin/wii-sphero -p 60 > /dev/null &
 fi
 ```
+```
 wii-sphero [-cel] [-s #] [-p #]
 -c - don't connect to sphero. used mostly for debugging Wii code
 -e - turn on error printing
@@ -96,7 +97,7 @@ wii-sphero [-cel] [-s #] [-p #]
 -s # - in our case # is 0 or 1 and is which Sphero we want to connect to
 -p # - # can be between 30 and 200 and is the percent we multiply the Wii input by in order to make it less or more
       sensitive.
-
+````
 If you just have the Wii mote and no Nunchuk then I use the orientation of the Wii controller to drive the Sphero. With the 1 & 2 
 buttons to the right. and the Wii facing up. The Sphero should roll forward when you tip the Wii forward and backward when you
 tip the Wii backwards. Tip left to roll left and you guessed it tip right to roll right. It will roll to all the directions in
@@ -107,7 +108,7 @@ should come on. Now when you control the Wii it is setting the heading of the Sp
 the Wii controller or you will not set the heading correctly.
 
 If the Nunchuk is inserted, then we will use the joystick on the Nunchuk to control the Sphero. You can still use the 1 button
-on the Wii to calibrate the Sphero.
+on the Wii to calibrate the Sphero. You can add or remove the Nunchuk at any time.
 
 If you push the home button, the Sphero will go to sleep and we will try to connect to the next Sphero in the list
 
