@@ -5,8 +5,11 @@ Sphero with Wii control
 This was all done on a raspberry PI 3. Here are my install instructions for the dependancies including my personal preferences
 
 sudo apt-get vino dconf-editor
+
 use dconf-editor to set no-prompt and no-encryption
+
 create /home/pi/.config/autostart/
+
 write the following to vino.desktop in the /home/pi/.config/autostart/ directory 
 ```
 [Desktop Entry]
