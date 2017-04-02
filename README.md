@@ -1,5 +1,5 @@
 # wii-sphero
-This is a raspberry pi hid-wiimote design using the lernel mods
+This is a raspberry pi hid-wiimote design using the kernel mods
 Sphero with Wii control
 
 This was all done on a raspberry PI 3. Here are my install instructions for the dependancies including my personal preferences
