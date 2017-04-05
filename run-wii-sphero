@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /home/pi
+/home/pi/bin/wii-sphero -p 60

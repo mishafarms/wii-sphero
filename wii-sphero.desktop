@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Wii Sphero
+Comment=Fun with Spheros and WiiMotes
+Exec=/home/pi/bin/run-wii-sphero
+Icon=/home/pi/src/wii-sphero/sphero_mm.png
+Terminal=true
+Type=Application
+Categories=Application;Game;
+StartupNotify=true
