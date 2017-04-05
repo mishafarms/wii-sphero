@@ -1,44 +1,55 @@
 # wii-sphero
 This is a raspberry pi hid-wiimote design using the kernel mods
+These instructions have been updated to include setting up the LCD display and touchscreen.
+
 Sphero with Wii control
 
 This was all done on a raspberry PI 3. Here are my install instructions for the dependancies including my personal preferences
 
-sudo apt-get vino dconf-editor
+The Raspberry Pi now comes with VNC. Go to the pi preferences and set SSH and VNC to enabled.
 
-use dconf-editor to set no-prompt and no-encryption
+You should change the password of the pi account to something other the "raspberry" you will see a message if you do not.
 
-create /home/pi/.config/autostart/
+The LCD screen is the elecrow 5 inch.
 
-write the following to vino.desktop in the /home/pi/.config/autostart/ directory 
+git clone https://github.com/goodtft/LCD-show.git
+chmod -R 755 LCD-show
+cd LCD-show/
+
+Then we have to make a change. The file usr/cmdline.txt has the wrong root. So look at the original file in /boot/cmdline.txt
+and see what the root=, mine is root=/dev/mmcblk0p7, so modify the usr/cmdline.txt
+
+Then type ./LCD5-show and the system should reboot.
+now do the following.
+
+cd LCD-show
+sudo dpkg -i -B xserver-xorg-input-evdev_1%3a2.10.3-1_armhf.deb
+sudo cp -rf /usr/share/X11/xorg.conf.d/10-evdev.conf /usr/share/X11/xorg.conf.d/45-evdev.conf
+sudo reboot
+
+To get the touchscreen working I did the following.
+cd LCD-show
+sudo dpkg -i -B xinput-calibrator_0.7.5_armhf.deb
+then execute the calbrator. You should not need to set this (it shoul be set) but your DISPLAY=0.0
+xinput-calibrator
+and calibrate the touchscreen.
+
+To get the right mouse click working. create an /etc/X11/xorg.conf file with this in it.
+
 ```
-[Desktop Entry]
-Encoding=UTF-8
-Type=Application
-Name=VINO
-Comment=
-Exec=/usr/lib/vino/vino-server
-StartupNotify=false
-Terminal=false
-Hidden=false
-```
+Section "InputClass"
+	Identifier "calibration"
+	Driver "evdev"
+	MatchProduct "ADS7846 Touchscreen"
 
-then reboot and you should have a VNC to the desktop available.
-in order to get a larger screen headless add the following to /boot/config.txt
-##### this will give a 1920x1080 screen size with no monitor connected hdmi_group = 1 and hdmi_mode =16
-
+	Option "EmulateThirdButton" "1"
+	Option "EmulateThirdButtonTimeout" "750"
+	Option "EmulateThirdButtonMoveThreshold" "30"
+EndSection
 ```
-hdmi_force_hotplug=1
-hdmi_ignore_edid=0xa5000080
-hdmi_group=1
-hdmi_mode=16
-start_x=1
-gpu_mem=128
-```
-
+sudo reboot
+ 
 sudo apt-get install bluez blueman libbluetooth-dev git libreadline6-dev libncurses5 libncurses5-dev cmake
-
-git clone https://github.com/slock83/sphero-linux-api.git
 
 sudo apt-get install emacs
 
