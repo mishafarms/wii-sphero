@@ -64,7 +64,6 @@ EndSection
 sudo reboot
  
 sudo apt-get install bluez blueman libbluetooth-dev git libreadline6-dev libncurses5 libncurses5-dev cmake
-
 sudo apt-get install emacs
 ```
 
@@ -94,6 +93,12 @@ disconnect <MAC of the wiimote>
 ```
 
 ```
+git clone https://github.com/slock83/sphero-linux-api.git
+cd sphero-linux-api
+make
+sudo make install
+cd ..
+
 git clone https://github.com/dvdhrm/xwiimote.git
 cd xwiimote
 ./autogen.sh
