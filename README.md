@@ -97,10 +97,7 @@ git clone https://github.com/dvdhrm/xwiimote.git
 
 ####### may need autoconf
 ```
-sudo apt-get install autoconf
-sudo apt-get install libtool
-sudo apt-get install libudev-dev
-sudo apt-get install libboost-dev
+sudo apt-get install autoconf libtool libudev-dev libboost-dev
 ```
 
 then in this directory you can type 'cmake .' then 'make'.
