@@ -11,10 +11,11 @@ The Raspberry Pi now comes with VNC. Go to the pi preferences and set SSH and VN
 You should change the password of the pi account to something other the "raspberry" you will see a message if you do not.
 
 The LCD screen is the elecrow 5 inch.
-
+```
 git clone https://github.com/goodtft/LCD-show.git
 chmod -R 755 LCD-show
 cd LCD-show/
+```
 
 Then we have to make a change. The file usr/cmdline.txt has the wrong root. So look at the original file in /boot/cmdline.txt
 and see what the root=, mine is root=/dev/mmcblk0p7, so modify the usr/cmdline.txt
@@ -22,16 +23,22 @@ and see what the root=, mine is root=/dev/mmcblk0p7, so modify the usr/cmdline.t
 Then type ./LCD5-show and the system should reboot.
 now do the following.
 
+```
 cd LCD-show
 sudo dpkg -i -B xserver-xorg-input-evdev_1%3a2.10.3-1_armhf.deb
 sudo cp -rf /usr/share/X11/xorg.conf.d/10-evdev.conf /usr/share/X11/xorg.conf.d/45-evdev.conf
 sudo reboot
+```
 
 To get the touchscreen working I did the following.
+```
 cd LCD-show
 sudo dpkg -i -B xinput-calibrator_0.7.5_armhf.deb
+```
 then execute the calbrator. You should not need to set this (it shoul be set) but your DISPLAY=0.0
+```
 xinput-calibrator
+```
 and calibrate the touchscreen.
 
 To get the right mouse click working. create an /etc/X11/xorg.conf file with this in it.
