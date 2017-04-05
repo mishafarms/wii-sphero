@@ -93,8 +93,13 @@ trust <MAC of the wiimote>
 disconnect <MAC of the wiimote>
 ```
 
+```
 git clone https://github.com/dvdhrm/xwiimote.git
-
+cd xwiimote
+./autogen.sh
+make
+sudo make install
+```
 ####### may need autoconf
 ```
 sudo apt-get install autoconf libtool libudev-dev libboost-dev
