@@ -20,7 +20,11 @@ cd LCD-show/
 Then we have to make a change. The file usr/cmdline.txt has the wrong root. So look at the original file in /boot/cmdline.txt
 and see what the root=, mine is root=/dev/mmcblk0p7, so modify the usr/cmdline.txt
 
-Then type ./LCD5-show and the system should reboot.
+Then type
+```
+./LCD5-show
+```
+and the system should reboot.
 now do the following.
 
 ```
@@ -31,11 +35,13 @@ sudo reboot
 ```
 
 To get the touchscreen working I did the following.
+
 ```
 cd LCD-show
 sudo dpkg -i -B xinput-calibrator_0.7.5_armhf.deb
 ```
-then execute the calbrator. You should not need to set this (it shoul be set) but your DISPLAY=0.0
+then execute the calbrator. You should not need to set this (it should be set) but your DISPLAY=0.0
+
 ```
 xinput-calibrator
 ```
@@ -54,11 +60,13 @@ Section "InputClass"
 	Option "EmulateThirdButtonMoveThreshold" "30"
 EndSection
 ```
+```
 sudo reboot
  
 sudo apt-get install bluez blueman libbluetooth-dev git libreadline6-dev libncurses5 libncurses5-dev cmake
 
 sudo apt-get install emacs
+```
 
 The Sphero's need to be paired with the raspberry. You can use blueman should be at the top right
 side of the main desktop. to pair and trust the Sphero's. 
