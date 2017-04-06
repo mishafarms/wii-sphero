@@ -104,25 +104,29 @@ cd xwiimote
 ./autogen.sh
 make
 sudo make install
+cd ..
 ```
 ####### may need autoconf
 ```
-sudo apt-get install autoconf libtool libudev-dev libboost-dev
+sudo apt-get install autoconf libtool libudev-dev libboost-dev libboost-system-dev libboost-thread-dev
 ```
 
-then in this directory you can type 'cmake .' then 'make'.
-
-You should get a wii-sphero executeable. It needs to be run as root. So if you do sudo make install it will be installed into /home/pi/bin/wii-sphero with the proper permissions.
-
-I put this into the /etc/rc.local to get this program to run every time we reboot.
-
 ```
-if [ -e /home/pi/bin/wii-sphero ]; then
-   cd /home/pi
-   /home/pi/bin/wii-sphero -p 60 > /dev/null &
-fi
+git clone https://github.com/mishafarms/wii-sphero.git
+cd wii-sphero
+cmake .
+make
+sudo make install
 ```
+
+wii-sphero will be installed into /home/pi/bin/wii-sphero with the proper permissions.
+/************** I NO longer start it at in /etc/rc.local, the LCD needs to display stuff, so there is an ICON *******/
+
+Until I can get the cmake to do this. I there is now a script and desktop icon to run sphero
 ```
+cp sphero.desktop ~/Desktop
+```
+
 wii-sphero [-cel] [-s #] [-p #]
 -c - don't connect to sphero. used mostly for debugging Wii code
 -e - turn on error printing
