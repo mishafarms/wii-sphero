@@ -21,3 +21,13 @@ target_link_libraries(wii-sphero xwiimote sphero wiringPi boost_system boost_thr
 install(TARGETS wii-sphero
   PERMISSIONS SETUID OWNER_EXECUTE OWNER_READ OWNER_WRITE GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ
   DESTINATION /home/pi/bin)
+
+install(FILES wii-sphero.desktop
+  DESTINATION /home/pi/Desktop)
+
+install(FILES sphero_mm.png sphero.cfg
+  DESTINATION /home/pi)
+
+install(FILES run-wii-sphero
+  DESTINATION /home/pi/bin
+  PERMISSIONS OWNER_EXECUTE OWNER_READ OWNER_WRITE GROUP_EXECUTE GROUP_READ )
