@@ -64,7 +64,7 @@ sudo apt-get install emacs
 The Sphero's need to be paired with the raspberry. You can use blueman should be at the top right
 side of the main desktop. to pair and trust the Sphero's. 
 
-##### This is the way to  go with wii use the hid-wiimote. THIS SEEMS TO ONLY WORK IN JESSIE. release 02/24/2017 Noobs_v2.2
+##### This is the way to  go with wii use the hid-wiimote. THIS SEEMS TO ONLY WORK IN JESSIE. release 02/27/2017 Noobs_v2.2
 
 ##### using hid-wiimote kernel mod
 
