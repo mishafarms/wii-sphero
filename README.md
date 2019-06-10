@@ -15,13 +15,7 @@ The LCD screen is the elecrow 5 inch.
 git clone https://github.com/goodtft/LCD-show.git
 chmod -R 755 LCD-show
 cd LCD-show/
-```
 
-Then we have to make a change. The file usr/cmdline.txt has the wrong root. So look at the original file in /boot/cmdline.txt
-and see what the root=, mine is root=/dev/mmcblk0p7, so modify the usr/cmdline.txt
-
-Then type
-```
 ./LCD5-show
 ```
 and the system should reboot.
@@ -70,7 +64,7 @@ sudo apt-get install emacs
 The Sphero's need to be paired with the raspberry. You can use blueman should be at the top right
 side of the main desktop. to pair and trust the Sphero's. 
 
-##### This is the way to  go with wii use the hid-wiimote.
+##### This is the way to  go with wii use the hid-wiimote. THIS SEEMS TO ONLY WORK IN JESSIE. release 02/24/2017 Noobs_v2.2
 
 ##### using hid-wiimote kernel mod
 
