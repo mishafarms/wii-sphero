@@ -54,7 +54,9 @@ static SpheroManager sm;
 
 std::vector<string> spheroAddresses;
 
-string address[] = { "68:86:E7:08:D9:F8",
+string address[] = { "68:86:E7:06:A7:60",
+		     "68:86:E7:06:75:50",
+		     "68:86:E7:08:D9:F8",
 		     "68:86:E7:08:13:91"};
     
 int spheroAddressIndex = -1;
