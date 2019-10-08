@@ -34,9 +34,10 @@ public:
     Vec3<float> gForce;       // place to store what the G forces are
     Angle3<float> orientation;// how are we oriented in the world
     Vec2<int16_t> joyStick;   // this is the nunchuk joystick values if there is one
-    uint16_t bbWeights[5];    // each entry is one sensor on the balance board tr, br, tl, bl
+    int16_t bbCal[4];         // amount to remove from each weight
+    int16_t bbWeights[5];     // each entry is one sensor on the balance board tr, br, tl, bl
                               // the last entry is the total
-    
+    bool calibrate;           // should we use the current data to fill in the bbCal
     typedef signals2::signal<void (WiiMote *, int)> WiiSignal;
 
     static WiiSignal wiiSignal;

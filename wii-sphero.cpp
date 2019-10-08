@@ -271,6 +271,31 @@ void wiiBalanceEvent(WiiMote *wii)
 	return;
     }
 
+    for (int y = 0 ; y < 4 ; y++)
+    {
+	if (wii->calibrate)
+	{
+	    wii->bbCal[y] = -wii->bbWeights[x];
+	}
+	else
+	{
+	    // use the calibrate data to fix the sample
+
+	    if ( wii->bbWeights[y] < wii->bbCal[y] )
+	    {
+		// we can only goto zero
+
+		wii->bbWeights[4] -= wii->bbWeights[y];
+		wii->bbWeights[y] = 0;
+	    }
+	    else
+	    {
+		wii->bbWeights[4] -= wii->bbCal[y];
+		wii->bbWeights[y] = wii->bbCal[y];
+	    }		
+	}
+    }
+
     total = wii->bbWeights[4];
     
     for(int x = 0 ; x < 4 ; x++)
@@ -716,20 +741,19 @@ int wiiSpheroLoop(int argc, char **argv)
 
     struct termios t;
     
-    cout << "Setting ~ICANON" << std::endl;
+ 
+    // I want to get keystrokes not lines
+
     tcgetattr(0, &t); //get the current terminal I/O structure
     t.c_lflag &= ~ICANON; //Manipulate the flag bits to do what you want it to do
     tcsetattr(0, TCSANOW, &t); //Apply the new settings
-     
+
     while(true)
     {
 	static timeval startTime = {0, 0};
 	struct timeval nowTime;
 	int ch;
 	char userInput;
-//	static bool butWasDwn = false;
-	
-	// we should only due this every once in a while
 
 	ch = std::cin.peek();
 
@@ -749,14 +773,29 @@ int wiiSpheroLoop(int argc, char **argv)
 	    else if (userInput == 'b' || userInput == 'B')
 	    {
 		// read the balance board and set the values as the base
-            }
-	    else if (userInput == 'c' || userInput == 'C')
+		WiiMote::index(0)->calibrate = true;
+		cout << "Calibrating the balance board" << std::endl;
+	    }
+	    else if (userInput == 'C')
 	    {
 		// toggle the sphero set heading mode
+		setCalibrateMode(true);
+		cout << "Entering calibrate mode" << std::endl;
+	    }
+	    else if (userInput == 'c')
+	    {
+		// toggle the sphero set heading mode
+		setCalibrateMode(false);
+		cout << "Exiting calibrate mode" << std::endl;
+	    }
+	    else if (std::toUpper(userInput) == 'S')
+	    {
+		switchSphero = true;
+		cout << "We are switching Sphero" << std::endl;
 	    }
 	}
-
-	// if we want to connect a new sphero, we need to disconnect the old one
+	
+	// if we are trying to connect to a new sphero, disconnect the one we have
 
 	if (switchSphero)
 	{
@@ -817,6 +856,8 @@ int wiiSpheroLoop(int argc, char **argv)
 	}
 	else
 	{
+	
+	    // we should only due this every once in a while
 	    if (isConnected() && ((elapseTime(&startTime, &nowTime) / 1000) >= 5))
 	    {
 		static uint32_t times = 0;
