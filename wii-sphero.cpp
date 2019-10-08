@@ -775,7 +775,7 @@ int wiiSpheroLoop(int argc, char **argv)
 	    else if (userInput == 'b' || userInput == 'B')
 	    {
 		// read the balance board and set the values as the base
-		if (WiiMote::index(0))
+		if (WiiMote::count())
 		{
 		    if (WiiMote::index(0)->faces & XWII_IFACE_BALANCE_BOARD)
 		    {
