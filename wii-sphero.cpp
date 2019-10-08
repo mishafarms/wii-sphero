@@ -762,6 +762,8 @@ int wiiSpheroLoop(int argc, char **argv)
 	    std::cin.get(userInput);
 //	    printf("ch1 = %x [%c]\n", userInput,userInput);
 
+	    cout << std::endl;
+	    
 	    if (userInput == 'q' || userInput == 'Q')
 	    {
 		tcgetattr(0, &t); //get the current terminal I/O structure
