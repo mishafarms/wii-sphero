@@ -55,19 +55,19 @@ int WiiMote::openIfaces(void)
     if (newIfaces)
     {
 	unsigned int oldIfaces;
-	unsigned int faces;
+	unsigned int tmpFaces;
 	
 	oldIfaces = xwii_iface_opened(iFace);
 
 	// get the difference between the old and new ignore the writable
 	
-	faces = (oldIfaces & ~newIfaces) & ~XWII_IFACE_WRITABLE;
+	tmpFaces = (oldIfaces & ~newIfaces) & ~XWII_IFACE_WRITABLE;
 	
-	if (faces)
+	if (tmpFaces)
 	{
 	    // these are the things I will close
 
-	    xwii_iface_close(iFace, faces);
+	    xwii_iface_close(iFace, tmpFaces);
 	}
 	
 	newIfaces |= XWII_IFACE_WRITABLE;
@@ -81,6 +81,7 @@ int WiiMote::openIfaces(void)
 
     // so at this point we have another xwii_iface 
 
+    faces = newIfaces;
     return 0;
 }
 

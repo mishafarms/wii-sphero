@@ -275,7 +275,7 @@ void wiiBalanceEvent(WiiMote *wii)
     {
 	if (wii->calibrate)
 	{
-	    wii->bbCal[y] = -wii->bbWeights[x];
+	    wii->bbCal[y] = -wii->bbWeights[y];
 	}
 	else
 	{
@@ -773,8 +773,22 @@ int wiiSpheroLoop(int argc, char **argv)
 	    else if (userInput == 'b' || userInput == 'B')
 	    {
 		// read the balance board and set the values as the base
-		WiiMote::index(0)->calibrate = true;
-		cout << "Calibrating the balance board" << std::endl;
+		if (WiiMote::index(0))
+		{
+		    if (WiiMote::index(0)->faces & XWII_IFACE_BALANCE_BOARD)
+		    {
+			WiiMote::index(0)->calibrate = true;
+			cout << "Calibrating the balance board" << std::endl;
+		    }
+		    else
+		    {
+			cout << "Not a balance board"<< std::endl;
+		    }
+		}
+		else
+		{
+		    cout << "No balance board" << std::endl;
+		}
 	    }
 	    else if (userInput == 'C')
 	    {
@@ -788,7 +802,7 @@ int wiiSpheroLoop(int argc, char **argv)
 		setCalibrateMode(false);
 		cout << "Exiting calibrate mode" << std::endl;
 	    }
-	    else if (std::toUpper(userInput) == 'S')
+	    else if (toupper(userInput) == 'S')
 	    {
 		switchSphero = true;
 		cout << "We are switching Sphero" << std::endl;

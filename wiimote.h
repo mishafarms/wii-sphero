@@ -28,6 +28,7 @@ protected:
 public:
     int unitId;                // this will be which LED is on
     struct xwii_iface *iFace;  // this is where we store the xwii_iface
+    int faces;                 // keep track of Wii interfaces available for this Wii
     string name;
     Vec3<int16_t> cal_zero;
     Vec3<uint16_t> cal_g;
