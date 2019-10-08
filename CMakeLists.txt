@@ -16,7 +16,7 @@ link_directories(/usr/lib/arm-linux-gnueabihf)
 
 add_executable(wii-sphero wii-sphero.cpp wiimote.cpp spheromanager.cpp)
 
-target_link_libraries(wii-sphero xwiimote sphero wiringPi boost_system boost_thread)
+target_link_libraries(wii-sphero xwiimote sphero wiringPi boost_system boost_thread ncurses)
 
 install(TARGETS wii-sphero
   PERMISSIONS SETUID OWNER_EXECUTE OWNER_READ OWNER_WRITE GROUP_EXECUTE GROUP_READ WORLD_EXECUTE WORLD_READ

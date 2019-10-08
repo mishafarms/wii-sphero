@@ -28,6 +28,7 @@
 #include <sys/select.h>
 #include <iostream>
 #include <fstream>
+#include <termios.h>
 
 #include <boost/thread.hpp>
 
@@ -286,7 +287,7 @@ void wiiBalanceEvent(WiiMote *wii)
     // all up and get a new X,Y. this resultant vector is the angle and magnitude of what I want,
     // where is the weight positioned.
 
-    LOG("tot %3.3f tr %3.3f br %3.3f tl %3.3f bl %3.3f\n", total, weights[0], weights[1],
+    printf("tot %3.3f tr %3.3f br %3.3f tl %3.3f bl %3.3f\n", total, weights[0], weights[1],
 	weights[2], weights[3]);
 
     vecX = 0.0;
@@ -712,16 +713,50 @@ int wiiSpheroLoop(int argc, char **argv)
    
     // we now should have any Wii's that where up already connected and we can look for a
     // sphero
+
+    struct termios t;
+    
+    cout << "Setting ~ICANON" << std::endl;
+    tcgetattr(0, &t); //get the current terminal I/O structure
+    t.c_lflag &= ~ICANON; //Manipulate the flag bits to do what you want it to do
+    tcsetattr(0, TCSANOW, &t); //Apply the new settings
      
     while(true)
     {
 	static timeval startTime = {0, 0};
 	struct timeval nowTime;
+	int ch;
+	char userInput;
 //	static bool butWasDwn = false;
 	
 	// we should only due this every once in a while
 
-	// if we are trying to get a new sphero, disconnect the one we have
+	ch = std::cin.peek();
+
+	if (ch > 0)
+	{
+	    std::cin.get(userInput);
+//	    printf("ch1 = %x [%c]\n", userInput,userInput);
+
+	    if (userInput == 'q' || userInput == 'Q')
+	    {
+		tcgetattr(0, &t); //get the current terminal I/O structure
+		t.c_lflag |= ICANON; //Manipulate the flag bits to do what you want it to do
+		tcsetattr(0, TCSANOW, &t); //Apply the new settings
+		cout << "Exiting wii-sphero" << std::endl;
+		exit(0);
+	    }
+	    else if (userInput == 'b' || userInput == 'B')
+	    {
+		// read the balance board and set the values as the base
+            }
+	    else if (userInput == 'c' || userInput == 'C')
+	    {
+		// toggle the sphero set heading mode
+	    }
+	}
+
+	// if we want to connect a new sphero, we need to disconnect the old one
 
 	if (switchSphero)
 	{
